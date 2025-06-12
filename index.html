@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧪 소프트웨어 테스팅 용어집 - 인터랙티브 낱말카드</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧪</text></svg>">
+    <meta name="description" content="소프트웨어 테스팅 용어를 재미있고 효과적으로 학습할 수 있는 인터랙티브 낱말카드 웹앱">
+    <meta name="keywords" content="소프트웨어 테스팅, 용어집, 낱말카드, 학습, QA, 품질보증">
+</head>
+<body>
+    <!-- 플로팅 아이콘들 -->
+    <div class="floating-icon" style="left: 10%; animation-delay: 0s;">🧪</div>
+    <div class="floating-icon" style="left: 20%; animation-delay: 3s;">🔍</div>
+    <div class="floating-icon" style="left: 70%; animation-delay: 6s;">📊</div>
+    <div class="floating-icon" style="left: 80%; animation-delay: 9s;">⚡</div>
+
+    <div class="container">
+        <header>
+            <h1>🧪 소프트웨어 테스팅 용어집</h1>
+            <p>✨ 인터랙티브 낱말카드로 학습하는 테스팅 개념들 ✨</p>
+        </header>
+
+        <div class="controls">
+            <div class="category-filter">
+                <label for="category">📚 카테고리:</label>
+                <select id="category" aria-label="카테고리 선택">
+                    <option value="all">🌟 전체</option>
+                    <option value="basic">🎯 기초</option>
+                    <option value="lifecycle">🔄 개발 수명주기</option>
+                    <option value="static">🔍 정적 테스팅</option>
+                    <option value="design">🎨 테스트 설계</option>
+                    <option value="management">📋 테스트 관리</option>
+                    <option value="tools">🛠️ 지원 도구</option>
+                </select>
+            </div>
+            
+            <div class="mode-toggle">
+                <label for="studyMode">🎮 학습 모드:</label>
+                <select id="studyMode" aria-label="학습 모드 선택">
+                    <option value="term-to-definition">📝 용어 → 정의</option>
+                    <option value="definition-to-term">🔍 정의 → 용어</option>
+                    <option value="random">🎲 랜덤</option>
+                </select>
+            </div>
+
+            <div class="buttons">
+                <button id="shuffleBtn" title="카드를 랜덤하게 섞습니다 (S키)" aria-label="카드 섞기">
+                    🔀 섞기
+                </button>
+                <button id="resetBtn" title="학습 진행상황을 초기화합니다 (R키)" aria-label="진행상황 초기화">
+                    🔄 초기화
+                </button>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat" title="전체 카드 수">
+                <span class="stat-label">📊 총 카드</span>
+                <span id="totalCards">0</span>
+            </div>
+            <div class="stat" title="현재 카드 번호">
+                <span class="stat-label">📍 현재</span>
+                <span id="currentCard">0</span>
+            </div>
+            <div class="stat" title="학습 완료한 카드 수">
+                <span class="stat-label">✅ 완료</span>
+                <span id="completedCards">0</span>
+            </div>
+            <div class="stat" title="학습 완료율">
+                <span class="stat-label">🎯 진행률</span>
+                <span id="completionRate">0%</span>
+            </div>
+        </div>
+
+        <div class="card-container">
+            <div class="flashcard" id="flashcard" tabindex="0" role="button" 
+                 aria-label="낱말카드 - 클릭하거나 Enter/Space키로 뒤집을 수 있습니다"
+                 title="클릭하거나 Enter/Space키로 카드를 뒤집어보세요">
+                <div class="card-inner" id="cardInner">
+                    <div class="card-front">
+                        <div class="card-content">
+                            <h3 id="frontContent">🎯 카드를 클릭하여 시작하세요</h3>
+                        </div>
+                        <div class="card-hint" aria-hidden="true">클릭하여 뒤집기</div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-content">
+                            <h3 id="backContent">✨ 정의가 여기에 표시됩니다</h3>
+                        </div>
+                        <div class="card-hint" aria-hidden="true">클릭하여 뒤집기</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation" role="navigation" aria-label="카드 네비게이션">
+            <button id="prevBtn" disabled aria-label="이전 카드로 이동 (왼쪽 화살표)" title="이전 카드 (← 또는 A키)">
+                ⬅️ 이전
+            </button>
+            <button id="markKnownBtn" aria-label="알고 있는 카드로 표시 (1키)" title="알고 있음 (1키)">
+                ✅ 알고 있음
+            </button>
+            <button id="markUnknownBtn" aria-label="모르는 카드로 표시 (2키)" title="모르겠음 (2키)">
+                ❌ 모르겠음
+            </button>
+            <button id="nextBtn" aria-label="다음 카드로 이동 (오른쪽 화살표)" title="다음 카드 (→ 또는 D키)">
+                다음 ➡️
+            </button>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-label">📈 학습 진행률</div>
+            <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <!-- 키보드 단축키 가이드 -->
+        <div class="keyboard-guide" id="keyboardGuide">
+            <button class="guide-toggle" id="guideToggle" title="키보드 단축키 가이드 토글" aria-label="키보드 단축키 가이드">
+                ⌨️ 단축키
+            </button>
+            <div class="guide-content" id="guideContent">
+                <h4>⌨️ 키보드 단축키</h4>
+                <div class="guide-grid">
+                    <div class="guide-item">
+                        <kbd>← →</kbd>
+                        <span>카드 이동</span>
+                    </div>
+                    <div class="guide-item">
+                        <kbd>Space</kbd>
+                        <span>카드 뒤집기</span>
+                    </div>
+                    <div class="guide-item">
+                        <kbd>1</kbd>
+                        <span>알고 있음</span>
+                    </div>
+                    <div class="guide-item">
+                        <kbd>2</kbd>
+                        <span>모르겠음</span>
+                    </div>
+                    <div class="guide-item">
+                        <kbd>S</kbd>
+                        <span>카드 섞기</span>
+                    </div>
+                    <div class="guide-item">
+                        <kbd>R</kbd>
+                        <span>초기화</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 성취도 표시 -->
+        <div class="achievement" id="achievement">
+            <div class="achievement-content">
+                <div class="achievement-icon">🎉</div>
+                <div class="achievement-text">
+                    <h3>축하합니다!</h3>
+                    <p id="achievementMessage">첫 번째 카드를 완료했습니다!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
