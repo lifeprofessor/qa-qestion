@@ -654,84 +654,164 @@ header p {
 /* 미디어 쿼리 통합 */
 @media (max-width: 768px) {
     .container {
-        padding: 15px;
+        padding: 10px;
     }
     
     header h1 {
-        font-size: 2.2rem;
+        font-size: 1.8rem;
+        word-break: keep-all;
+        line-height: 1.3;
+    }
+
+    header p {
+        font-size: 1rem;
+        word-break: keep-all;
+        padding: 0 10px;
     }
     
     .controls {
         flex-direction: column;
-        gap: 20px;
+        gap: 15px;
+        padding: 15px;
+    }
+
+    .category-filter, .mode-toggle {
+        width: 100%;
+    }
+
+    .category-filter select, .mode-toggle select {
+        width: 100%;
+        padding: 10px;
     }
     
     .stats {
-        gap: 15px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        padding: 0 10px;
     }
-    
-    .flashcard {
-        width: 100%;
-        max-width: 500px;
-        height: 400px;
+
+    .stat {
+        padding: 12px;
     }
-    
-    .card-content h3 {
+
+    .stat-label {
+        font-size: 0.8rem;
+    }
+
+    .stat span:last-child {
         font-size: 1.4rem;
     }
     
-    .navigation {
-        grid-template-columns: 1fr 1fr;
-        gap: 15px;
-    }
-    
-    .keyboard-guide {
-        bottom: 15px;
-        right: 15px;
-    }
-    
-    .guide-content {
-        right: -50px;
-        min-width: 200px;
-        padding: 15px;
-    }
-    
-    .achievement {
-        min-width: 250px;
-        padding: 20px;
-    }
-    
-    .achievement-icon {
-        font-size: 2.5rem;
-    }
-}
-
-@media (max-width: 480px) {
     .flashcard {
-        height: 350px;
+        height: 300px;
+        margin: 20px auto;
     }
     
     .card-content h3 {
         font-size: 1.2rem;
-    }
-    
-    .card-front, .card-back {
-        padding: 25px;
+        line-height: 1.4;
+        padding: 0 10px;
     }
     
     .navigation {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        padding: 0 10px;
+    }
+
+    .navigation button {
+        padding: 12px 8px;
+        font-size: 0.9rem;
+    }
+    
+    .keyboard-guide {
+        bottom: 10px;
+        right: 10px;
     }
     
     .guide-content {
-        bottom: 50px;
-        right: -80px;
+        right: 0;
+        min-width: 200px;
+        padding: 15px;
+    }
+    
+    .achievement {
+        width: 90%;
+        max-width: 300px;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 8px;
+    }
+
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    header p {
+        font-size: 0.9rem;
+    }
+
+    .controls {
+        padding: 12px;
+    }
+
+    .buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .buttons button {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .flashcard {
+        height: 250px;
+    }
+    
+    .card-content h3 {
+        font-size: 1.1rem;
+    }
+    
+    .card-front, .card-back {
+        padding: 15px;
+    }
+    
+    .navigation {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
+    .navigation button {
+        padding: 10px 6px;
+        font-size: 0.85rem;
+    }
+    
+    .guide-content {
+        right: -50%;
+        transform: translateX(50%);
         min-width: 180px;
     }
     
     .achievement {
-        min-width: 200px;
+        width: 95%;
         padding: 15px;
+    }
+
+    .stat {
+        padding: 10px;
+    }
+
+    .stat-label {
+        font-size: 0.75rem;
+    }
+
+    .stat span:last-child {
+        font-size: 1.2rem;
     }
 }
 
